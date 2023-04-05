@@ -1,10 +1,16 @@
 import CartItem from "./CartItem";
 import "./Cart.css";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 function Cart() {
   const cart = useSelector((state) => state.cart);
   const produce = useSelector((state) => state.produce);
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  };
 
   const cartItems = Object.values(cart).map((item) => {
     return {
@@ -32,7 +38,7 @@ function Cart() {
     <div className="cart">
       <ul>
         {cartItems.map((item) => (
-          <CartItem key={item.id} item={item} />
+          <CartItem key={item.id} item={item} handleRefresh={handleRefresh} />
         ))}
       </ul>
       <hr />
