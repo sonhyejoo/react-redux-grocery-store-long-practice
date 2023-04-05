@@ -10,8 +10,8 @@ function CartItem({ item }) {
     setCount(item.count);
   }, [item.count]);
   const handleClick = () => {
-    console.log(item);
     dispatch(removeFromCart(item.id));
+    setCount(0);
   };
 
   return (

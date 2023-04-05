@@ -25,9 +25,7 @@ export default function cartReducer(state = {}, action) {
       return newState1;
     case REMOVE_FROM_CART:
       const newState2 = state;
-      console.log("newState2", newState2);
       delete newState2[action.id];
-      console.log("after newState2", newState2);
       return newState2;
     default:
       return state;
