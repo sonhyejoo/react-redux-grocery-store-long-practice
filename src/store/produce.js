@@ -15,8 +15,8 @@ export default function produceReducer(state = {}, action) {
     case POPULATE:
       let normProduce = {};
       let produce = action.produce;
-      produce.forEach((el, { id }) => {
-        normProduce[id] = el;
+      produce.forEach((el) => {
+        normProduce[el.id] = el;
       });
       return normProduce;
     default:
