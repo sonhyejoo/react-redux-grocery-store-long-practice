@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { removeFromCart, plusCart } from "../../store/cart";
+import { removeFromCart, plusCart, setCart } from "../../store/cart";
 
 function CartItem({ item, handleRefresh }) {
   const dispatch = useDispatch();
@@ -9,6 +9,10 @@ function CartItem({ item, handleRefresh }) {
   useEffect(() => {
     setCount(item.count);
   }, [item.count]);
+  const handleChange = () => {
+    dispatch(setCart(item.id, parseInt(count)));
+    handleRefresh();
+  };
 
   const handleClickPlus = (delta) => {
     //delta is 1
@@ -37,7 +41,12 @@ function CartItem({ item, handleRefresh }) {
     <li className="cart-item">
       <div className="cart-item-header">{item.name}</div>
       <div className="cart-item-menu">
-        <input type="number" value={count} />
+        <input
+          type="number"
+          value={count}
+          onChange={(e) => setCount(parseInt(e.target.value))}
+          onBlur={handleChange}
+        />
         <button className="cart-item-button" onClick={() => handleClickPlus(1)}>
           +
         </button>

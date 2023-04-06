@@ -1,9 +1,11 @@
 import CartItem from "./CartItem";
 import "./Cart.css";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "../../store/cart";
 
 function Cart() {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const produce = useSelector((state) => state.produce);
   const [refresh, setRefresh] = useState(false);
@@ -28,6 +30,11 @@ function Cart() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log("cartItems: ", cartItems);
+    console.log("redux cart: ", cart);
+    cartItems.forEach((item) => {
+      dispatch(removeFromCart(item.id));
+    });
     window.alert(
       "Purchased the following:\n" +
         `${cartItems.map((item) => `${item.count} of ${item.name}`).join("\n")}`

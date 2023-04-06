@@ -1,6 +1,7 @@
 const ADD_TO_CART = "cart/addToCart";
 const REMOVE_FROM_CART = "cart/removeFromCart";
 const PLUS_CART = "cart/plusCart";
+const SET_CART = "cart/setCart";
 
 export const addToCart = (id) => {
   return {
@@ -21,6 +22,13 @@ export const plusCart = (id, delta) => {
     type: PLUS_CART,
     id,
     delta,
+  };
+};
+export const setCart = (id, newCount) => {
+  return {
+    type: SET_CART,
+    id,
+    newCount,
   };
 };
 
@@ -45,6 +53,15 @@ export default function cartReducer(state = {}, action) {
         },
       };
       return newState3;
+    case SET_CART:
+      const newState4 = {
+        ...state,
+        [action.id]: {
+          id: action.id,
+          count: action.newCount,
+        },
+      };
+      return newState4;
     default:
       return state;
   }
